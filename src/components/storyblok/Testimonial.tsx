@@ -19,7 +19,7 @@ const Testimonial = ({ blok }) => {
               <Image
                 layout="fill"
                 className="object-cover lg:h-full lg:w-full"
-                src={blok.image.filename}
+                src={blok.image?.filename}
                 alt=""
               />
             </div>

@@ -6,18 +6,21 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const storyblokApi = new Storyblok({
-    accessToken: process.env.NEXT_PUBLIC_STORYBLOK_PUBLIC_TOKEN,
+    accessToken: process.env.NEXT_PUBLIC_STORYBLOK_SECRET_TOKEN,
   });
 
-  const { query } = req;
-  const slug = query.slug;
+  const slug = req.query.slug;
 
   if (!!slug) {
-    const { data: sbData } = await storyblokApi.get(`cdn/stories/${slug}`);
+    const { data: sbData } = await storyblokApi.get(`cdn/stories/${slug}`, {
+      version: 'draft',
+    });
     return res.status(200).json(sbData);
   }
 
-  const { data } = await storyblokApi.get('cdn/links/');
+  const { data } = await storyblokApi.get('cdn/links/', {
+    version: 'draft',
+  });
 
   let paths = [];
 

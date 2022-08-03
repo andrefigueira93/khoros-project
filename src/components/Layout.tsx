@@ -1,9 +1,9 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 import CountriesProvider from '../contexts/useCountries';
 import Footer from './Footer';
 import Header from './Header';
 
-const Layout: React.FC<PropsWithChildren> = ({ children }) => {
+const Layout = ({ children }) => {
   return (
     <CountriesProvider>
       <Header />

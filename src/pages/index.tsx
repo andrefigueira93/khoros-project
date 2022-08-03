@@ -4,14 +4,14 @@ import client from '../lib/apollo-client';
 import { StoryblokComponent, useStoryblokState } from '@storyblok/react';
 import { useCountries } from '../contexts/useCountries';
 
-export default function Home({ countries, story, preview }) {
+export default function Home({ countries, story: initialStory, preview }) {
   const { setCountries } = useCountries();
 
   useEffect(() => {
     setCountries(countries);
   }, [countries, setCountries]);
 
-  story = useStoryblokState(story, {}, preview);
+  const story = useStoryblokState(initialStory, {}, preview);
 
   return (
     <main>
@@ -45,7 +45,7 @@ export async function getStaticProps(context: any) {
       },
     }
   );
-  const { data } = await getData.json();
+  const data = await getData.json();
 
   return {
     props: {
