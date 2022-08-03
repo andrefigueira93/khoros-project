@@ -15,7 +15,7 @@ export async function getStaticProps({ params }) {
   const slug = params.slug ? params.slug.join('/') : 'home';
   const getData = await fetch(
     `${
-      process.env.NODE_ENV !== 'development'
+      process.env.NODE_ENV === 'development'
         ? process.env.NEXT_PUBLIC_DEV_URL
         : process.env.NEXT_PUBLIC_PROD_URL
     }/api/storyblok?slug=${slug}`,
@@ -38,7 +38,7 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const getPaths = await fetch(
     `${
-      process.env.NODE_ENV !== 'development'
+      process.env.NODE_ENV === 'development'
         ? process.env.NEXT_PUBLIC_DEV_URL
         : process.env.NEXT_PUBLIC_PROD_URL
     }/api/storyblok`,

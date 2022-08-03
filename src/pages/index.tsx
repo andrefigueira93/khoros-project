@@ -35,7 +35,7 @@ export async function getStaticProps(context: any) {
 
   const getData = await fetch(
     `${
-      process.env.NODE_ENV !== 'development'
+      process.env.NODE_ENV === 'development'
         ? process.env.NEXT_PUBLIC_DEV_URL
         : process.env.NEXT_PUBLIC_PROD_URL
     }/api/storyblok?slug=home`,
