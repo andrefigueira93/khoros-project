@@ -12,28 +12,38 @@ export default function Page({ story }) {
   );
 }
 
-export async function getStaticProps({ params }) {
-  const slug = params.slug ? params.slug.join('/') : 'home';
-  const getData = await fetch(
-    `https://khoros-project.vercel.app/api/storyblok?slug=${slug}`
-  );
-  const data = await getData.json();
-  return {
-    props: {
-      story: data ? data.story : false,
-      key: data ? data.story.id : false,
-    },
-    revalidate: 20,
-  };
-}
+// export async function getStaticProps({ params }) {
+//   const slug = params.slug ? params.slug.join('/') : 'home';
+//   const getData = await fetch(
+//     `https://khoros-project.vercel.app/api/storyblok?slug=${slug}`,
+//     {
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     }
+//   );
+//   const data = await getData.json();
+//   return {
+//     props: {
+//       story: data ? data.story : false,
+//       key: data ? data.story.id : false,
+//     },
+//     revalidate: 20,
+//   };
+// }
 
-export async function getStaticPaths() {
-  const getPaths = await fetch(
-    `https://khoros-project.vercel.app/api/storyblok`
-  );
-  const paths = await getPaths.json();
-  return {
-    paths,
-    fallback: 'blocking',
-  };
-}
+// export async function getStaticPaths() {
+//   const getPaths = await fetch(
+//     `https://khoros-project.vercel.app/api/storyblok`,
+//     {
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     }
+//   );
+//   const paths = await getPaths.json();
+//   return {
+//     paths,
+//     fallback: 'blocking',
+//   };
+// }
