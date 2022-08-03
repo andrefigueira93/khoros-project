@@ -1,4 +1,3 @@
-import Layout from '../components/Layout';
 import { useStoryblokState, StoryblokComponent } from '@storyblok/react';
 import { useEffect } from 'react';
 
@@ -43,6 +42,6 @@ export async function getStaticPaths() {
   const paths = await getPaths.json();
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   };
 }
