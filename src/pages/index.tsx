@@ -19,36 +19,40 @@ export default function Home({ countries, story, preview }) {
     </main>
   );
 }
-// export async function getStaticProps(context: any) {
-//   const { data: countries } = await client.query({
-//     query: gql`
-//       query Countries {
-//         countries {
-//           code
-//           name
-//           emoji
-//           capital
-//         }
-//       }
-//     `,
-//   });
+export async function getStaticProps(context: any) {
+  const { data: countries } = await client.query({
+    query: gql`
+      query Countries {
+        countries {
+          code
+          name
+          emoji
+          capital
+        }
+      }
+    `,
+  });
 
-//   const getData = await fetch(
-//     `https://khoros-project.vercel.app/api/storyblok?slug=home`,
-//     {
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     }
-//   );
-//   const data = await getData.json();
+  const getData = await fetch(
+    `${
+      process.env.NODE_ENV !== 'development'
+        ? process.env.NEXT_PUBLIC_DEV_URL
+        : process.env.NEXT_PUBLIC_PROD_URL
+    }/api/storyblok?slug=home`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+  const { data } = await getData.json();
 
-//   return {
-//     props: {
-//       story: data ? data.story : false,
-//       key: data ? data.story.id : false,
-//       preview: context.preview || false,
-//       countries: countries.countries,
-//     },
-//   };
-// }
+  return {
+    props: {
+      story: data ? data.story : false,
+      key: data ? data.story.id : false,
+      preview: context.preview || false,
+      countries: countries.countries,
+    },
+  };
+}
