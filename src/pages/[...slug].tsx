@@ -28,7 +28,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const getPaths = await fetch(`https://khoros-project.vercel.app/api/storyblok`);
+  const getPaths = await fetch(`http://localhost:3000/api/storyblok`);
   const paths = await getPaths.json();
   return {
     paths,

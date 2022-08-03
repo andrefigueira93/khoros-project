@@ -17,7 +17,7 @@ const SectionHeading = dynamic(
 
 const components = {
   cta: CTA,
-  homePanel: Hero,
+  hero: Hero,
   page: Page,
   countries: Countries,
   testimonial: Testimonial,

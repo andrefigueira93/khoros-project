@@ -1,11 +1,7 @@
 import { useEffect } from 'react';
 import { gql } from '@apollo/client';
 import client from '../lib/apollo-client';
-import {
-  getStoryblokApi,
-  StoryblokComponent,
-  useStoryblokState,
-} from '@storyblok/react';
+import { StoryblokComponent, useStoryblokState } from '@storyblok/react';
 import { useCountries } from '../contexts/useCountries';
 
 export default function Home({ countries, story, preview }) {
@@ -38,7 +34,7 @@ export async function getStaticProps(context: any) {
   });
 
   const getData = await fetch(
-    `https://khoros-project.vercel.app/api/storyblok?slug=home`
+    `http://localhost:3000/api/storyblok?slug=home`
   );
   const data = await getData.json();
 
