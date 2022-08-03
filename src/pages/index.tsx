@@ -19,31 +19,31 @@ export default function Home({ countries, story, preview }) {
     </main>
   );
 }
-export async function getStaticProps(context: any) {
-  const { data: countries } = await client.query({
-    query: gql`
-      query Countries {
-        countries {
-          code
-          name
-          emoji
-          capital
-        }
-      }
-    `,
-  });
+// export async function getStaticProps(context: any) {
+//   const { data: countries } = await client.query({
+//     query: gql`
+//       query Countries {
+//         countries {
+//           code
+//           name
+//           emoji
+//           capital
+//         }
+//       }
+//     `,
+//   });
 
-  const getData = await fetch(
-    `http://localhost:3000/api/storyblok?slug=home`
-  );
-  const data = await getData.json();
+//   const getData = await fetch(
+//     `http://localhost:3000/api/storyblok?slug=home`
+//   );
+//   const data = await getData.json();
 
-  return {
-    props: {
-      story: data ? data.story : false,
-      key: data ? data.story.id : false,
-      preview: context.preview || false,
-      countries: countries.countries,
-    },
-  };
-}
+//   return {
+//     props: {
+//       story: data ? data.story : false,
+//       key: data ? data.story.id : false,
+//       preview: context.preview || false,
+//       countries: countries.countries,
+//     },
+//   };
+// }
