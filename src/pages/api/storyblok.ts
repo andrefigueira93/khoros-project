@@ -17,7 +17,7 @@ export default async function handler(
       `cdn/stories/${slug}`,
       sbParams
     );
-    res.status(200).json(sbData);
+    return res.status(200).json(sbData);
   }
 
   const { data } = await storyblokApi.get('cdn/links/');
