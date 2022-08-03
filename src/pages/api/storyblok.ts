@@ -1,27 +1,23 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getStoryblokApi } from '@storyblok/react';
+import Storyblok from 'storyblok-js-client';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const storyblokApi = getStoryblokApi();
+  const storyblokApi = new Storyblok({
+    accessToken: process.env.NEXT_PUBLIC_STORYBLOK_PUBLIC_TOKEN,
+  });
+
   const { query } = req;
   const slug = query.slug;
-  const sbParams = {
-    version: 'published', // or 'published'
-    token: process.env.NEXT_PUBLIC_STORYBLOK_PUBLIC_TOKEN,
-  };
 
   if (!!slug) {
-    const { data: sbData } = await storyblokApi.get(
-      `cdn/stories/${slug}`,
-      sbParams
-    );
+    const { data: sbData } = await storyblokApi.get(`cdn/stories/${slug}`);
     return res.status(200).json(sbData);
   }
 
-  const { data } = await storyblokApi.get('cdn/links/', sbParams);
+  const { data } = await storyblokApi.get('cdn/links/');
 
   let paths = [];
 
