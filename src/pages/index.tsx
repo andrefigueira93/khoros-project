@@ -23,7 +23,7 @@ export default function Home({ countries, story, preview }) {
     </main>
   );
 }
-export async function getServerSideProps(context: any) {
+export async function getStaticProps(context: any) {
   const { data: countries } = await client.query({
     query: gql`
       query Countries {
@@ -37,18 +37,11 @@ export async function getServerSideProps(context: any) {
     `,
   });
 
-  let slug = 'home';
+  const getData = await fetch(
+    `https://khoros-project.vercel.app/api/storyblok?slug=home`
+  );
+  const data = await getData.json();
 
-  let sbParams = {
-    version: 'published', // or 'published'
-  };
-
-  if (context.preview) {
-    sbParams.version = 'draft';
-  }
-
-  const storyblokApi = getStoryblokApi();
-  const { data } = await storyblokApi?.get(`cdn/stories/${slug}`, sbParams);
   return {
     props: {
       story: data ? data.story : false,
