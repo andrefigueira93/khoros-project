@@ -48,8 +48,7 @@ export async function getServerSideProps(context: any) {
   }
 
   const storyblokApi = getStoryblokApi();
-  let { data } = await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
-
+  const { data } = await storyblokApi?.get(`cdn/stories/${slug}`, sbParams);
   return {
     props: {
       story: data ? data.story : false,
@@ -57,6 +56,5 @@ export async function getServerSideProps(context: any) {
       preview: context.preview || false,
       countries: countries.countries,
     },
-    revalidate: 3600,
   };
 }
