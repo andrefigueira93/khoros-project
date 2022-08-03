@@ -5,12 +5,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const storyblokApi = getStoryblokApi();
   const { query } = req;
   const slug = query.slug;
   const sbParams = {
-    version: 'draft', // or 'published'
+    version: 'published', // or 'published'
   };
-  const storyblokApi = getStoryblokApi();
 
   if (!!slug) {
     const { data: sbData } = await storyblokApi.get(
@@ -21,6 +21,7 @@ export default async function handler(
   }
 
   const { data } = await storyblokApi.get('cdn/links/');
+
   let paths = [];
 
   Object.keys(data.links).forEach((linkKey) => {
@@ -32,6 +33,5 @@ export default async function handler(
     const splittedSlug = pageSlug.split('/');
     paths.push({ params: { slug: splittedSlug } });
   });
-
   return res.status(200).json(paths);
 }

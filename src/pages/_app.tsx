@@ -26,7 +26,10 @@ const components = {
 
 function MyApp({ Component, pageProps }) {
   storyblokInit({
-    accessToken: 'VVelAmPQC6r3z6dYQvn2Nwtt',
+    accessToken:
+      process.env.NODE_ENV === 'development'
+        ? process.env.NEXT_PUBLIC_STORYBLOK_SECRET_TOKEN
+        : process.env.NEXT_PUBLIC_STORYBLOK_PUBLIC_TOKEN,
     use: [apiPlugin],
     components,
   });
