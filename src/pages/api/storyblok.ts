@@ -10,6 +10,7 @@ export default async function handler(
   const slug = query.slug;
   const sbParams = {
     version: 'published', // or 'published'
+    token: process.env.NEXT_PUBLIC_STORYBLOK_PUBLIC_TOKEN,
   };
 
   if (!!slug) {
@@ -20,7 +21,7 @@ export default async function handler(
     return res.status(200).json(sbData);
   }
 
-  const { data } = await storyblokApi.get('cdn/links/');
+  const { data } = await storyblokApi.get('cdn/links/', sbParams);
 
   let paths = [];
 
